@@ -5,7 +5,7 @@ void textmod(char* file){
 	printf("\nFile to be processed is %s\n\n",file);
 	
 	char c,pastc='a'; 
-	int i=0,j=0;
+	int i;
 	FILE *in=fopen(file,"r");
 	FILE *out=fopen("./white","w");
 	
@@ -26,27 +26,35 @@ void textmod(char* file){
 	in=fopen("./white","r");
 	out=fopen("./subsi","w");
 	char word[50],thes[30];
-	c='c';
-	while(c!=EOF){
-		while((c=fgetc(in))!=' '){
+	c='c',i=0;
+	while((c=fgetc(in))!=EOF){
+		while(c!=' '){
 			word[i++]=c;
-			//fputc(c,out);
+			c=fgetc(in);
 		}
-		word[i]='\0';
-		puts(word);
+		//c=fgetc(in);
+		word[i++]='\0';
+		//getc(in);
 		strcpy(thes,dict(word));
-		puts(thes);
-		if(thes,"zero"){
-			fputs(thes,stdout);
+		if(strcmp(thes,"zero")){
+			fputs(thes,out);
+			fputc(' ',out);
 			word[0]='\0';
+			i=0;
+			//c=fgetc(in);
+			//continue;
 		}
-		else
+		else{
 			fputs(word,out);
-		//printf("%s",thes);
-		//break;
+			fputc(' ',out);
+			word[0]='\0';
+			i=0;
+			//c=fgetc(in);
+			//continue;
+		}
+		//c=getc(in);
+		//putc(c,stdout);
 	}
-	//printf("%s",word);
-	
 }
 
 char *dict(char* word){
