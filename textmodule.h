@@ -19,21 +19,23 @@ void textmod(char* file){
 	}
 	//White space steg removal complete.
 	
-	printf("\nOutput is written to file 'out'\n\n");
+	printf("\nOutput is written to file 'output.txt'\n\n");
 	fclose(out);
 	fclose(in);
 	
 	in=fopen("./white","r");
-	out=fopen("./subsi","w");
+	out=fopen("./output.txt","w");
 	char word[50],thes[30];
 	c='c',i=0;
 	while((c=fgetc(in))!=EOF){
+		//if(c==' ')
+			//continue;
 		while(c!=' '){
 			word[i++]=c;
 			c=fgetc(in);
 		}
 		//c=fgetc(in);
-		word[i++]='\0';
+		word[i]='\0';
 		//getc(in);
 		strcpy(thes,dict(word));
 		if(strcmp(thes,"zero")){
@@ -55,6 +57,8 @@ void textmod(char* file){
 		//c=getc(in);
 		//putc(c,stdout);
 	}
+	fclose(out);
+	fclose(in);
 }
 
 char *dict(char* word){
@@ -67,8 +71,11 @@ char *dict(char* word){
 			break;
 		}
 	}
-	if(!found)
+	if(!found){
+		rewind(dict);
+		fclose(dict);
 		return "zero";
+	}
 	while(line[i]!='\n'){
 		while(line[i]!=':'){
 			thes[j++]=line[i++];
@@ -82,5 +89,7 @@ char *dict(char* word){
 			break;
 	}
 	//puts(thes);
+	rewind(dict);
+	fclose(dict);
 	return thes;
 }

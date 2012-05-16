@@ -1,41 +1,20 @@
-/*
- * stegr.c
- * 
- * Copyright 2012 Samuel Johnson <esamueljohnson@gmail.com>
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
- * 
- * 
- */
-
 #include <stdio.h>
 #include <magic.h>
 #include <string.h>
 #include <unistd.h>
+#include <wand/MagickWand.h>
 #include "textmodule.h"
 #include "imagemodule.h"
 
-int
-main(int argc, char *argv[])
+//gcc -lmagic `pkg-config --cflags --libs MagickWand` -Wall -o "%e" "%f"
+
+int main(int argc, char *argv[])
 {
     //char *actual_file = "/home/user/Programming/Final/temp.c";
     char actual_file[100], string[100];
     
     if(argc!=2) {
-		printf("\nUsage: stegr <filename>\n");
+		printf("\nUsage: %s <filename>\n",argv[0]);
 		return -1;
 	}
     
@@ -84,8 +63,8 @@ main(int argc, char *argv[])
 	}
 	
 	else if (strstr(string, "image")){
-		puts("\nImage file.");
-		imagemod();
+		puts("\nImage file detected.");
+		imagemod(actual_file);
 	}
 	
 	else if (strstr(string, "executable")||strstr(string, "object")||strstr(string, "dosexec")){
