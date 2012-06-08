@@ -51,9 +51,7 @@ int imagemod(char* file)
   printf("\nProcessing Image. Please Wait...\n");
   if (status == MagickFalse)
     ThrowWandException(magick_wand);
-  /*
-    Turn the images into a thumbnail sequence.
-  */
+
   MagickResetIterator(magick_wand);
   while (MagickNextImage(magick_wand) != MagickFalse)
     MagickResizeImage(magick_wand,width,height,LanczosFilter,blurfactor);

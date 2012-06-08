@@ -28,39 +28,28 @@ void textmod(char* file){
 	char word[50],thes[30];
 	c='c',i=0;
 	while((c=fgetc(in))!=EOF){
-		//if(c==' ')
-			//continue;
 		while(c!=' '){
 			word[i++]=c;
 			c=fgetc(in);
 		}
-		//c=fgetc(in);
 		word[i]='\0';
-		//getc(in);
 		strcpy(thes,dict(word));
 		if(strcmp(thes,"zero")){
 			fputs(thes,out);
 			fputc(' ',out);
 			word[0]='\0';
 			i=0;
-			//c=fgetc(in);
-			//continue;
 		}
 		else{
 			fputs(word,out);
 			fputc(' ',out);
 			word[0]='\0';
 			i=0;
-			//c=fgetc(in);
-			//continue;
 		}
-		//c=getc(in);
-		//putc(c,stdout);
 	}
 	fclose(out);
 	fclose(in);
 }
-
 char *dict(char* word){
 	FILE* dict=fopen("./dict","r");
 	char line[30],thes[10];
@@ -83,12 +72,10 @@ char *dict(char* word){
 		thes[j]='\0';
 		if(!strcmp(thes,word)){
 			j=0,i++;
-			//continue;
 		}
 		else
 			break;
 	}
-	//puts(thes);
 	rewind(dict);
 	fclose(dict);
 	return thes;
